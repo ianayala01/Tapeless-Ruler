@@ -22,7 +22,7 @@ int main(void){
 	setupLCD();
 
 	printf("entering loop, button state = %d\n", gpioread(button));
-	while(gpioRead(button != 1)){
+	while(gpioRead(button) != 1){
 		//send pulse
 		gpioWrite(triggerPin, 1);
 		// wait 10 micro seconds
@@ -31,14 +31,12 @@ int main(void){
 		gpioWrite(triggerPin, 0);
 
 		// start waiting for the echo to read HIGH
-		while(gpioRead(echoPin ==0)){
-			// get the current system tick
-			startTick = gpioTick();
+		while(gpioRead(echoPin) == 0);
+		// get the current system tick
+		startTick = gpioTick();
 
-			while(gpioRead(echoPin == 1)){
-				endTick = gpioTick();
-			}
-		}
+		while(gpioRead(echoPin) == 1);
+		endTick = gpioTick();
 		diffTick = endTick - startTick;
 		distance = (diffTick/2) * .034;
 		printf("pulse length was %d\n", diffTick);
