@@ -15,6 +15,9 @@
 #include <stdlib.h>
 #include <pigpio.h>
 
+// button pin
+const int button = 21;
+
 // HC-SR04 pins
 const int triggerPin = 4;
 const int echoPin = 17;
@@ -27,3 +30,11 @@ const int d5 = 24;
 const int d6 = 25;
 const int d7 = 26;
 
+// sonar variables
+uint32_t startTick, endTick;
+int diffTick;
+float distance;
+
+void setupButton();
+void setupSonar();
+void setupLCD();
