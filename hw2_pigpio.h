@@ -11,6 +11,9 @@
 *
 **************************************************************/
 
+#ifndef HW2_PIGPIO_H
+#define HW2_PIGPIO_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <pigpio.h>
@@ -38,3 +41,5 @@ float cm;
 void setupButton();
 void setupSonar();
 void setupLCD();
+
+#endif

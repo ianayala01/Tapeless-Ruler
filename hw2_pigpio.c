@@ -13,20 +13,40 @@
 
 #include "hw2_pigpio.h"
 
+static void round(float num){
+	float value = (int)(var * 100 + .5);
+	return (float)value / 100;
+}
 
 int main(void){
 	int init = gpioInitialise();
 	printf("initialised: %d\n", init);
 
+	setupButton();
 	setupSonar();
 	setupLCD();
 
-	printf("entering loop, button state = %d\n", gpioRead(button));
+	//set cursor to first column and row on lcd then print
+	setCursor(0,0);
+	printLCD("Distance:");
+
+	// buffered i/o for writing to lcd
+	char buf[17];
+
+	// execute this loop until the kill switch is pressed
 	while(gpioRead(button) != 1){
+
+		// set cursor to seond row
+		setCursor(0,1)
+		// clear
+		memset(buf, ' ', 16);
+		// null terminate c string
+		buf[16] = '\0';
+
 		//send pulse
 		gpioWrite(triggerPin, 1);
 		// wait 10 micro seconds
-		time_sleep(.00001);
+		gpioDelay(10);
 		//turn trigger pin off
 		gpioWrite(triggerPin, 0);
 
@@ -35,16 +55,24 @@ int main(void){
 		// get the current system tick
 		startTick = gpioTick();
 
+		// wait for echo to read low
 		while(gpioRead(echoPin) == 1);
+		// get tick for the end of the puls
 		endTick = gpioTick();
+		// find delta t
 		diffTick = endTick - startTick;
-		cm = (diffTick/2) * .034;
+		// distance in cm
+		cm = (diffTick/2) * .0343;
+		// also convert to freedom units
 		float inch = cm / 2.54;
-//		printf("pulse length was %d\n", diffTick);
-		printf("distance: %f cm, %f in.\n", cm, inch);
-		time_sleep(.1);
+
+		// my tape measure is in inches so printing both
+		printf("distance: %.3f cm, %.3f in.\n", cm, inch);
+		gpioDelay(100000);
 	}
 
+	// if the button is pressed, terminate the process safely
+	printf("kill switch pressed, terminating...\n");
 	gpioTerminate();
 }
 
@@ -73,4 +101,8 @@ void setupLCD(){
 
 	gpioWrite(rs, 0);
 	gpioWrite(e, 0);
+
+	gpioDelay(50000);
+
+	initLCD();
 }
