@@ -38,8 +38,10 @@ int main(void){
 		while(gpioRead(echoPin) == 1);
 		endTick = gpioTick();
 		diffTick = endTick - startTick;
-		distance = (diffTick/2) * .034;
-		printf("pulse length was %d\n", diffTick);
+		cm = (diffTick/2) * .034;
+		float inch = cm / 2.54;
+//		printf("pulse length was %d\n", diffTick);
+		printf("distance: %f cm, %f in.\n", cm, inch);
 		time_sleep(.1);
 	}
 

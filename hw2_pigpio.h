@@ -33,7 +33,7 @@ const int d7 = 26;
 // sonar variables
 uint32_t startTick, endTick;
 int diffTick;
-float distance;
+float cm;
 
 void setupButton();
 void setupSonar();
