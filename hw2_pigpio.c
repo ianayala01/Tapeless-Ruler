@@ -46,9 +46,12 @@ int main(void){
 		// set cursor to seond row
 		setCursor(0,1);
 		// clear
-		memset(buf, ' ', 16);
+		memset(buf, ' ', 17);
 		// null terminate c string
 		buf[16] = '\0';
+
+		for(int i = 0; i < 16; i++) writeChar(' ');
+		setCursor(0,1);
 
 		//send pulse
 		gpioWrite(triggerPin, 1);
