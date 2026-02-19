@@ -13,6 +13,18 @@
 
 #include "hw2_pigpio.h"
 
+int button = 21;
+
+int triggerPin = 4;
+int echoPin = 17;
+
+int rs = 27;
+int e = 22;
+int d4 = 23;
+int d5 = 24;
+int d6 = 25;
+int d7 = 26;
+
 int main(void){
 	int init = gpioInitialise();
 	printf("initialised: %d\n", init);
@@ -48,16 +60,16 @@ int main(void){
 		// start waiting for the echo to read HIGH
 		while(gpioRead(echoPin) == 0);
 		// get the current system tick
-		startTick = gpioTick();
+		uint32_t startTick = gpioTick();
 
 		// wait for echo to read low
 		while(gpioRead(echoPin) == 1);
 		// get tick for the end of the puls
-		endTick = gpioTick();
+		uint32_t endTick = gpioTick();
 		// find delta t
-		diffTick = endTick - startTick;
+		int diffTick = endTick - startTick;
 		// distance in cm
-		cm = (diffTick/2) * .0343;
+		float cm = (diffTick/2) * .0343;
 		// also convert to freedom units
 		float inch = cm / 2.54;
 

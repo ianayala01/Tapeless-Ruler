@@ -20,19 +20,19 @@
 #include <pigpio.h>
 
 // button pin
-const int button = 21;
+extern int button;
 
 // HC-SR04 pins
-const int triggerPin = 4;
-const int echoPin = 17;
+extern int triggerPin;
+extern int echoPin;
 
 // LCD pins
-const int rs = 27;
-const int e = 22;
-const int d4 = 23;
-const int d5 = 24;
-const int d6 = 25;
-const int d7 = 26;
+extern int rs;
+extern int e;
+extern int d4;
+extern int d5;
+extern int d6;
+extern int d7;
 
 void initLCD();
 void clearLCD();
@@ -41,9 +41,9 @@ void printLCD(const char *str);
 void writeChar(char c);
 
 // sonar variables
-uint32_t startTick, endTick;
-int diffTick;
-float cm;
+extern uint32_t startTick, endTick;
+extern int diffTick;
+extern float cm;
 
 void setupButton();
 void setupSonar();
