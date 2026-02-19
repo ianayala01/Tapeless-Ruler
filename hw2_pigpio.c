@@ -21,7 +21,7 @@ int main(void){
 	setupSonar();
 	setupLCD();
 
-	printf("entering loop, button state = %d\n", gpioread(button));
+	printf("entering loop, button state = %d\n", gpioRead(button));
 	while(gpioRead(button) != 1){
 		//send pulse
 		gpioWrite(triggerPin, 1);
