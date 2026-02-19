@@ -43,8 +43,8 @@ static void writeNibble(uint8_t nibble){
 	pulseEnable();
 }
 
-static void writeByte(uint8_t byte, int register){
-	gpioWrite(rs, register);	//rs 0 = command, rs 1 = data
+static void writeByte(uint8_t byte, int reg){
+	gpioWrite(rs, reg);	//rs 0 = command, rs 1 = data
 	writeNibble(byte >> 4);
 	writeNibble(byte & 0x0F);
 }
@@ -72,7 +72,7 @@ void clearLCD(void){
 void setCursor(int col, int row){
 	int rowOffsets[] = {0x00, 0x40};
 	if (row > 1) row = 1;
-	writeByte(0x80 | col + rowOffsets[row]), 0);
+	writeByte(0x80 | (col + rowOffsets[row]), 0);
 }
 
 void writeChar(char c){

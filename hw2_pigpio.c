@@ -12,11 +12,8 @@
 **************************************************************/
 
 #include "hw2_pigpio.h"
+#include "lcd.h"
 
-static void round(float num){
-	float value = (int)(var * 100 + .5);
-	return (float)value / 100;
-}
 
 int main(void){
 	int init = gpioInitialise();
@@ -37,7 +34,7 @@ int main(void){
 	while(gpioRead(button) != 1){
 
 		// set cursor to seond row
-		setCursor(0,1)
+		setCursor(0,1);
 		// clear
 		memset(buf, ' ', 16);
 		// null terminate c string
@@ -65,6 +62,9 @@ int main(void){
 		cm = (diffTick/2) * .0343;
 		// also convert to freedom units
 		float inch = cm / 2.54;
+
+		snprintf(buf, 17, "%.2f cm %.1f in", cm, inch);
+		printLCD(buf);
 
 		// my tape measure is in inches so printing both
 		printf("distance: %.3f cm, %.3f in.\n", cm, inch);
