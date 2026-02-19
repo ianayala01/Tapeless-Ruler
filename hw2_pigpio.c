@@ -12,8 +12,6 @@
 **************************************************************/
 
 #include "hw2_pigpio.h"
-#include "lcd.h"
-
 
 int main(void){
 	int init = gpioInitialise();

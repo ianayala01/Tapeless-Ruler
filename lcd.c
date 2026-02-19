@@ -18,7 +18,6 @@
 #include <pigpio.h>
 #include <stdio.h>
 #include <string.h>
-#include "lcd.h"
 #include "hw2_pigpio.h"
 
 // similar to LiquidCrystal::pulseEnable()

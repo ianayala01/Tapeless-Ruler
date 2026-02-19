@@ -34,6 +34,12 @@ const int d5 = 24;
 const int d6 = 25;
 const int d7 = 26;
 
+void initLCD();
+void clearLCD();
+void setCursor(int col, int row);
+void printLCD(const char *str);
+void writeChar(char c);
+
 // sonar variables
 uint32_t startTick, endTick;
 int diffTick;
